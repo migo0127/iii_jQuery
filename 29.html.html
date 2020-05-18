@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Html</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+
+        body{
+            padding-bottom: 100px;
+        }
+
+        h1 span{
+            color:red;
+        }
+
+    </style>
+
+  </head>
+  <body>
+      <div class="container">
+          <h1 id="source">This is <span>title</span></h1>      
+        <div class="py-2">
+            <button type="button" class="btn btn-primary" id="getText">getText</button>
+            <button type="button" class="btn btn-primary" id="setText">setText</button>
+            <button type="button" class="btn btn-primary" id="getHTML">getHTML</button>
+            <button type="button" class="btn btn-primary" id="setHTML">setHTML</button>
+        </div>
+            <h1 id="target">target</h1> 
+            <hr />
+            <h1 id="attr">attr()</h1>
+            <a id="link" title="???" target="_block" href="https://www.google.com/">google</a> 
+
+            <div class="py-2">
+                <button type="button" class="btn btn-primary" id="getAttr">getAttr</button>
+                <button type="button" class="btn btn-primary" id="setAttr">setAttr</button>
+            </div>
+            <hr />
+            <div class="py-2">
+                <button type="button" class="btn btn-primary" id="changeImg">changeImg</button>
+            </div>
+            <img id="img" src="./images/dr_fate.jpg" alt="">
+            <hr />
+            <h1>prop()</h1><div class="py-2">
+                <button type="button" class="btn btn-primary" id="setPorp">setPorp</button>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="" id="checkbox">
+                <label for="checkbox">使用者條款</label>
+            </div>
+            <button type="button" class="btn btn-primary" id="send" disabled>送出</button>
+            <hr />
+            <h1>取消瀏覽器默認操作</h1>
+            <a href="">a標籤</a>
+        </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $("#getText").click(function(){
+            let content = $("#source").text();
+            // console.log(content); 
+            $("#target").text(content);
+        });
+
+        $("#setText").click(function(){
+            $("#source").text("New content");
+        });
+
+        $("#getHTML").click(function(){
+            let content = $("#source").html();
+            // console.log(content); 
+            $("#target").html(content);
+            
+            // $("#target2").text(content);
+        });
+
+        $("#setHTML").click(function(){
+            $("#source").html("New <span>contetn</span>");
+            // $("#source").text("New <span>contetn</span>");
+        });
+
+        $("#getAttr").click(function(){
+            let href = $("#link").attr("href");
+            let title = $("#link").attr("title");
+            console.log("href :"+href);
+            console.log("href :"+title);
+        });
+
+        // $("#setAttr").click(function(){
+        //     $("#link").attr("href","https://www.facebook.com");
+        // });
+
+        $("#setAttr").click(function(){
+            $("#link").attr({
+                href : "https://www.facebook.com",
+                titlt : "facebook"
+            }).text("facebook");
+        });
+
+        $("#changeImg").click(function(){
+            $("#img").attr("src","./images/dr_strange.jpg")
+        })
+
+        /* 
+            prop()：
+                - 與attr一樣是抓取元素的屬性。
+                - 區別：
+                    - prop()：判斷該屬性是否存在，回傳布爾值。
+                    - attr()：可進行多種操作。
+         */
+        // let checked = $("#checkbox").prop("checked");
+        // console.log(checked);
+        // $("#setPorp").click(function(){
+        //     $("#checkbox").prop("checked",true);
+        // })
+
+        // 當使用者條款勾選時，下方送出按鈕才可點擊，否則無法點擊
+        $("#checkbox").click(function(){
+            let checked = $("#checkbox").prop("checked");
+            // console.log(checked);
+            
+            // 寫法二：
+            $("#send").prop("disabled",!checked);
+
+            // 寫法一：
+            // if(checked === true){
+            //     $("#btn").prop("disabled",false);
+            // }else{
+            //     $("#send").prop("disabled",true);
+            // }
+        })
+
+        $("a").click(function(e){
+            e.preventDefault();
+        });
+
+    </script>
+  </body>
+</html>

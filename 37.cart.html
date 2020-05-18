@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <style>
+        .wrapper {
+            max-width: 640px;
+            margin: 40px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper ">
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>品名</th>
+                    <th>單價</th>
+                    <th width="200px">數量</th>
+                    <th>總價</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>蘋果</td>
+                    <td class="price">20</td>
+                    <td>
+                        <input type="number" class="form-control number" >
+                    </td>
+                    <td>
+                        <span class="text-right s_price"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>香蕉</td>
+                    <td class="price">16</td>
+                    <td>
+                        <input type="number" class="form-control number" >
+                    </td>
+                    <td>
+                        <span class="text-right s_price"></span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">
+                        總價:
+                        <span id="total">0</span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- container -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(".number").on("keyup change",function(){
+
+            // 限制數量欄只可輸入正整數
+            $(this).val(($(this).val().replace(/[^\d].+/,"")));
+            console.log(event);
+
+            // 左鍵盤上的0-9
+            if(event.which < 48 || event.which > 57){
+                event.preventDefault();
+            }
+
+            // 寫法二：
+            let number = Number($(this).val());
+            let row = $(this).closest("tr");
+            let prices = Number(row.find(".price").text());
+            // console.log(prices);
+            let total = 0;
+
+            // if(number <= 0){
+            //     number = 0;
+            // }
+
+            row.find(".s_price").text(number*prices);
+
+            $(".s_price").each(function(){
+                total += Number($(this).text());
+                // console.log(total);
+            })
+                $("#total").text(total);
+
+
+            // 寫法一：
+            // let number = $(this).val();
+            // // console.log(number);
+            // let prices = $(this).closest("td").prev().text();
+            // // console.log(prices);
+            // let total = number*prices;
+            // // console.log(total);
+            // $(this).closest("td").next().text(total);
+        });
+
+    </script>
+</body>
+
+</html>

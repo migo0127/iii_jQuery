@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cat Walk</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+  <style>
+    .map{
+      position: relative;
+      width:640px;
+      height:480px;
+      margin: 20px auto;
+      background: url(images/map.png);
+    }
+    .cat{
+      position: absolute;
+      left:0;
+      top:0;
+      width:184px;   
+      height:200px;   
+      /* margin:2% auto;    */
+      background: url(images/cat.png) left top;
+      background-size: cover;
+      transform-origin: left top;
+      transform: scale(.4);
+      animation: play .8s steps(9) infinite;   
+      -webkit-animation: play .8s steps(9) infinite; 
+    }  
+    @keyframes play {  
+       100% { background-position: -1658px; }   
+    }
+
+    .cat.paused{
+      animation-play-state: paused;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">   
+    <!-- <button type="button" class="btn btn-primary" data-speed="up">加速</button>
+    <button type="button" class="btn btn-primary" data-speed="down">減速</button> -->
+    <div class="map">
+      <div class="cat"></div>
+    </div><!-- map -->
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script>
+    // map寬高
+    let mapWidth = $(".map").width();    
+    let mapHeight = $(".map").height();
+
+    // 貓圖市座標位置
+    let catTop =Math.round($(".cat").position().top);    
+    let catLeft = Math.round($(".cat").position().left); 
+    
+    // 貓圖示寬高
+    let catWidth = $(".cat").width(); 
+    let catHeight = $(".cat").height();
+
+    // 邊界值
+    let mapTop = mapWidth - catWidth;
+    let mapLeft = mapHeight - catHeight;  
+    
+    let speed = 10;
+
+    $("body").on("keydown",function(event){
+      let keyCode = event.which;
+      switch(keyCode){
+        // 上
+        case 38: 
+          $(".cat").css("top","-="+speed+"px");
+          break;
+        // 下
+        case 40:
+          $(".cat").css("top","+="+speed+"px");
+          break;
+        // 左
+        case 37:          
+          $(".cat").css("left","-="+speed+"px");
+          break;
+
+        // 右
+        case 39:
+        cat();       
+        
+          $(".cat").css("left",catTop);
+          break;
+
+        // 空白鍵：停止
+        case 32:
+          $(".cat").toggleClass("paused");
+          break;
+
+       // ctrl：加速
+        case 17:
+          speed++;
+          break;
+
+        // Alt:減速
+        case 16:
+          speed--;
+          break;
+      }
+    })
+
+    // $(".btn").click(function(){
+    //   let speedControl = $(this).data("speed");
+
+    //   if(speedControl === "up"){
+    //     speed++;
+    //   }else if(speedControl === "down"){
+    //     speed--;
+    //   }
+    // })
+
+    function cat(){
+      mapWidth = $(".map").width();
+      mapHeight = $(".map").height();
+      catTop =Math.round($(".cat").position().top);
+      catLeft = Math.round($(".cat").position().left); 
+      mapTop = mapWidth - catWidth;
+      mapLeft = mapHeight - catHeight;
+
+    }
+    
+  </script>
+</body>
+</html>

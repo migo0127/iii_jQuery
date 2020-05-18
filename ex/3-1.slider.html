@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>silder</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style>
+
+      .wrap{
+        width: 800px;
+        margin: 0 auto;
+      }
+
+      .slider-wrap{
+        height: 400px;
+        overflow: hidden;
+      }
+
+      .slider-img{
+        /* width: 3200px; */
+        /* 當設定relative、absolute時，若沒有設定偏移量，該元素會保持在原來位置處，此時若後續有設定偏移量(非0)，則在移動時會發生圖片沒有過渡效果直接跳轉的情況，因此需初始化位置left:0 */
+        left:0px;
+        transition: .8s;
+      }
+
+      .slider-img li{
+        height: 400px;
+        /* 若圖片大小不一致時，要使li平均分配空間 */
+        /* 寫法一： */
+        /* flex-grow: 1;
+        flex-shrink:0;
+        flex-basis:0; */
+        /* 寫法二： */
+        flex:1 0 0;
+      }
+
+      .slider-img li img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slider-dots{
+        width: 100%;
+        bottom:0;
+        left: 0;
+      }
+
+      .slider-dots li{
+        width: 25px;
+        height: 10px;
+        border: 1px solid #fff;
+        margin-right: 8px;
+      }
+
+      .slider-dots li:hover{
+        background-color: #fff;
+      }   
+
+      /* 左右箭頭 */
+      .dir-btn{
+        display: inline-block;
+        height: 100%;
+        width: 40px;
+        font-size: 50px;
+        top:0;
+        justify-content: center;
+        align-items: center;
+        opacity: .5;
+      }
+
+      .dir-btn:hover{
+        opacity: 1;
+      }
+
+      .dir-btn i{
+        color:#fff;
+      }
+
+      .dir-right{
+        right:0;
+      }
+
+      .dir-left{
+        left:0;
+      }
+
+    </style>
+
+  </head>
+  <body>
+    
+      <!-- 外容器 -->
+      <div class="wrap">
+        <!-- silder容器 -->
+        <div class="slider-wrap position-relative">
+          <!-- silder列表 -->
+          <ul class="list-unstyled slider-img d-flex position-absolute" id="sliderImg">
+            <li><img src="./images/slide1.jpeg" alt=""></li>
+            <li><img src="./images/slide2.jpeg" alt=""></li>
+            <li><img src="./images/slide3.jpeg" alt=""></li>
+            <li><img src="./images/slide4.jpeg" alt=""></li>
+            <li><img src="./images/slide5.jpg" alt=""></li>
+          </ul>
+          <!-- 下方切換框 -->
+          <ul class="list-unstyled d-flex slider-dots position-absolute justify-content-center" id="sliderDots">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <!-- 左右箭頭 -->
+          <a role="button" class="dir-btn dir-right position-absolute d-flex" id="goNext" >
+            <i class="fas fa-angle-right"></i>
+          </a>
+          <a role="button" class="dir-btn dir-left position-absolute d-flex" id="goPrev">
+            <i class="fas fa-angle-left"></i>
+          </a>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+
+    // 寫法三(老師)：
+    // 0.使li平均分配寬度- 上方CSS處
+
+    // 1.獲取圖片長度
+    let imgCount = $("#sliderImg > li").length;
+    // console.log(imgCount);
+
+    // 2.使ul依圖片長度增加寬度
+    $("#sliderImg").css("width",imgCount*800);
+
+    // 3.讓第一個點默認白底：四種寫法
+    $("#sliderDots > li:first").css("background","#fff");
+    
+    // 初始化索引
+    let sliderNum = 0;
+    // 4.為每個點綁定hover事件
+    $("#sliderDots > li").hover(function(){
+
+      // 5.獲取每個點的索引
+      sliderNum = $(this).index();
+      // console.log(sliderNum);
+      goSilder();
+
+    });
+
+    // 獲取左右箭頭
+    $("#goNext").click(function(){
+      // 索引自增
+      sliderNum++;
+      goSilder();
+
+    });
+
+    $("#goPrev").click(function(){
+      // 索引自減
+      sliderNum--;
+      goSilder();
+    });
+
+    // 設置定時器，自動播放
+    var autoSlider = setInterval(nextSlider,3000);
+
+    function nextSlider(){
+      // 使索引自增
+      sliderNum++;
+      // 索引自增後調用共用函數
+      goSilder();
+    }
+
+    // 共用函數：透過索引進行偏移量設置
+    function goSilder(){
+      if(sliderNum >= imgCount){
+        sliderNum = 0;
+      }else if(sliderNum < 0){
+        sliderNum = imgCount -1;
+      }
+
+      let sliderImg = 0-800*sliderNum;
+      // console.log(sliderImg);
+      $("#sliderImg").css("left",sliderImg);
+
+      $("#sliderDots > li").eq(sliderNum).css("background","#fff")
+      .siblings().css("background","none");
+    }
+
+     // 當滑鼠移入圖片時，停止自動播放，移出後再開始自動播放
+     $("#sliderImg").hover(function(){
+      clearInterval(autoSlider);
+    },function(){
+      autoSlider = setInterval(nextSlider,3000);
+    });
+  
+    </script>
+
+  </body>
+</html>

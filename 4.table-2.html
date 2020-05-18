@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td><p></p></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><p>p1</p></td>
+                <td></td>
+                <td>Jason Kidd</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Jason Williams</td>
+                <td></td>
+                <td></td>
+                <td>LeBron James</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>James Harden</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="test"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+
+        /* 
+            :contains('字串')
+                - 選擇有符合('字串')的所有元素。
+                - 例：
+                    $("td:contains('字串')").css("background","lightblue");
+
+            :empty
+                - 選擇空值，若選擇的標籤中有包含其中標籤，則不算空值。
+
+            :has(元素)
+                - 選擇有包含(元素)的標籤。
+                - 例：
+                    選擇有包含p標籤的td標籤
+                     $("td:has(p)").css("background","lightblue");
+                     → 是選擇含有p標籤的td標籤
+                
+                - 與直接選擇標籤時有不同的區別。
+                    $("td p").css("background","red");  
+                    → 是選擇p標籤的區域。   
+        */
+
+        $("td:contains('James')").css("background","pink");
+
+        $("td:empty").css("background","yellow");
+
+        $("td:has(p)").css("background","skyblue");
+
+        $("td p").css("background","red");
+
+
+    </script>
+
+</body>
+
+</html>

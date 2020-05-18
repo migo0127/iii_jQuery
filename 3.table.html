@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>table</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Jason Kidd</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Jason Williams</td>
+                <td></td>
+                <td></td>
+                <td>LeBron James</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>James Harden</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="test"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+
+        $("td").css("background","#bfa");
+        
+        /* 
+            :eq()
+                - 從0開始，選擇第N個。
+                - 例：
+                    $("td:eq(1)").css("background","pink");
+
+            :even
+                - 從0開始，選擇偶數。
+                - 例：
+                    $("td:even").css("background","pink");
+
+            :odd
+                - 從0開始，選擇奇數。
+                - 例：
+                    $("td:odd").css("background","pink");
+
+            :first
+                - 從0開始，選擇第一個。
+                - 例：
+                    $("td:first").css("background","blue");
+
+            :last
+                - 從0開始，選擇最後一個。
+                - 例：
+                    $("td:last").css("background","blue");
+
+            :gt(n)
+                - 從0開始，選擇第n個之後所有，不包含n。
+                - 例：
+                    $("td:gt(n)").css("background","skyblue");
+
+            :lt(n)
+                - 從0開始，選擇第n個之前所有，不包含n。
+                - 例：
+                    $("td:lt(n)").css("background","red");
+
+            :not(選擇器)
+                - 選擇(選擇器)之外的所有。
+                - 例：
+                    $("td:not(選擇器)").css("background","yellow");
+
+            :contains('字串')
+                - 選擇有符合('字串')的所有元素。
+                - 例：
+                    $("td:contains('字串')").css("background","lightblue");
+
+            
+        */
+        // $("td:eq(1)").css("background","pink");
+        // $("td:even").css("background","pink");
+        // $("td:odd").css("background","blue");
+        // $("td:first").css("background","blue");
+        // $("td:last").css("background","blue");
+        // $("td:gt(5)").css("background","skyblue");
+        // $("td:lt(5)").css("background","red");
+        // $(".test").css("background","yellow");
+        // $("td:not(.test)").css("background","yellow");
+        $("td:contains('James')").css("background","lightblue");
+
+
+    </script>
+  </body>
+</html>

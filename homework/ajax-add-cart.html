@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <style>
+        body {
+            background: #eee;
+        }
+
+        .card-inner{
+            padding: 1.25rem;
+        }
+
+        .card-inner img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .h3{
+            font-size:1.25rem;
+            line-height: 100%;
+            margin: 10px 0;
+        }
+
+        #check.active{
+            background-color: #FF0080;
+            color:#fff;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row mt-3 mb-3" id="list">
+        <!-- <div class="col-sm-3">
+            <div class="card">
+                <div class="card-inner">
+                    <img src="./images/item-apple.jpg" alt="">
+                    <h3></h3>
+                    <div class="d-flex justify-content-around">
+                        <div class="prices text-danger">$20</div>
+                        <div class="car-icon">
+                            <a role="button" class="btn btn-info text-white" id="shop-car"><i class="fas fa-shopping-cart"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <div id="cart" class="cart card">
+                <div class="card-body">
+                    <h3 class="card-title h5">購物車</h3>
+                    <table class="table table-sm" >
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap">品名</th>
+                                <th class="text-nowrap">單價</th>
+                                <th style="width:100px;">數量</th>
+                                <th style="width:100px;">小計</th>
+                                <th style="width:100px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-list">
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                            </tr> -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    總價:
+                                    <span id="total">0</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <button class="btn btn-info btn-block" id="check" disabled="disabled">結帳</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- container -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    $.ajax({
+        method: "GET",
+        url:"food.json",
+        dataType:"json"
+    }).done(function(data){
+        data.forEach(datas=>{
+            $("#list").append(`<div class="col-sm-3">
+            <div class="card">
+                <div class="card-inner">
+                    <img src="./images/${datas.image}" alt="">
+                    <h3 class="h3" data-name="${datas.name}">${datas.name}</h3>
+                    <div class="d-flex justify-content-between down">
+                        <div class="prices text-danger" data-price="${datas.price}" >$${datas.price}</div>
+                        <div class="car-icon">
+                            <a role="button" class="btn btn-info text-white addCar" data-name="${datas.name}" data-price="${datas.price}"><i class="fas fa-shopping-cart"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`)
+        })
+    }).fail(function(){
+
+    }).always(function(){
+
+    })
+
+    let cart = [];
+
+    // 購物車圖示
+    $("#list").on("click",".addCar",function(){
+        let name = $(this).data("name");
+        let price = $(this).data("price");
+
+        // 當購物車裡已有相同商品時，不可再加入
+        for(let i in cart){
+            if(cart[i].name === name){
+                alert(`購物車已有 ${name} 囉！`);
+                return false;
+            }
+        }
+
+        // 將name推入陣列物件中
+        cart.push({name});
+        // console.log(cart);
+
+        $("#cart-list").append(`<tr>
+                                    <td class="name">${name}</td>
+                                    <td class="price">${price}</td>
+                                    <td class="count"><input type="number" class="form-control text-right" value="1" data-name=${name}  data-price="${price}"></td>
+                                    <td class="subtotal">${price}</td>
+                                    <td ><a role="button" class="btn btn-info text-white del-btn" data-name="${name}"><i class="fas fa-trash-alt"></i></td>
+                                </tr>`);
+
+        // 總價計算
+        totalCheck();
+
+    });
+
+    // 小計、
+    $("#cart-list").on("keyup change","input",function(){
+
+        // 限制數量最少1，若不需要則詢問是否刪除？
+        $(this).val($(this).val().replace(/[^\d].+/,""));
+
+        if( Number($(this).val()) <= 0){
+            if(confirm(`您是否要刪除 ${$(this).data("name")} ？`)){
+                // 確認刪除，執行cart陣列元素刪除
+                $(this).closest("tr").remove();
+                delCartElment($(this));
+            }else{
+                // 不刪除，數量保持 1
+                $(this).val(1);
+                return false;
+            }
+        }
+
+        let count = Number($(this).val());
+        let price = Number($(this).data("price"));
+        let subtotal = count*price;
+
+        // 小計
+        $(this).closest("tr").find(".subtotal").text(subtotal);
+
+        // 總價計算
+        totalCheck();
+    })
+
+    // 總價計算
+    function totalCheck(){
+        let total = 0;
+        $(".subtotal").each(function(){
+            total += Number($(this).text());
+        })
+
+        $("#total").text(total);
+
+        if(total === 0){
+            $("#check").prop("disabled",true);
+
+        }else{
+            $("#check").prop("disabled",false);
+        }
+    }
+
+
+    // 刪除
+    $("#cart-list").on("click",".del-btn",function(){
+        let index = $(this).data("name");
+
+        if(confirm(`確認要刪除 ${index} 嗎？`)){
+            delCartElment($(this));
+            // for(let i = 0 ; i < cart.length ; i++){
+            //     if(cart[i].name === index){
+            //         cart.splice(i,1);
+            //     }
+            // }
+
+            $(this).closest("tr").remove();
+
+            // 總價計算
+            totalCheck();
+
+        }else{
+            return false;
+        }
+    })
+
+    // 刪除cart陣列元素
+    function delCartElment(target){
+        for(let i = 0 ; i < cart.length ; i++){
+                if(cart[i].name === target.data("name")){
+                    cart.splice(i,1);
+                }
+            }
+    }
+
+
+    // 結帳計算
+    $("#check").click(function(){
+        let checktotal = Number($("#total").text());
+
+        // 確認是否結帳
+        if(confirm("請確認是否要進行結帳？")){
+            // 確認結帳
+            alert(`您已完成訂購，總金額為 ${checktotal} 元`);
+
+            // 獲取每欄位數量的值
+            $("#cart-list").find("input").each(function(){
+                let count = $(this).val();
+                // console.log(count);
+
+                // 重新插入數量值到.count
+                $(this).closest("tr").find(".count").text(count);
+
+            })
+            $("#cart-list").find(".del-btn,input").remove();
+            $("#check").prop("disabled",true);
+            $("#check").text("完成訂購").addClass("active");
+        }else{
+            return false;
+        }
+    })
+
+
+</script>
+</body>
+</html>

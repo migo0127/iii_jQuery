@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    <div class="form">
+        <button>btn08</button>
+        <input type="button" value="btn09">  
+    </div> 
+
+    <div class="py-2">
+        <input type="checkbox"><span>yes</span>
+        <input type="checkbox" checked="checked"><span>no</span>
+
+        <div class="t2 py-2">
+            <button disabled="disabled">btn10</button>
+            <button>btn11</button>
+        </div>
+
+        <div class="t3 py-2">
+            <input type="text" name="" id="">
+            <input type="password" name="" id="">
+        </div>
+    </div>
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+         /* 
+        「:」：
+          使用「:」的方式來選擇選擇器時，會將form表單中與"button(輸入的選擇器)"選取起來。      
+      */
+      $(".form :button").css("background","tomato");
+
+      $(":checkbox+span").css("background","#bfa");
+      $(":checked+span").css("background","yellow");
+
+      $(".t2 button:disabled").css("background","#aaa");
+      $(".t2 button:enabled").css("background","red");
+
+
+      $(".t3 input:text").css("background","pink");
+      $(".t3 input:password").css("background","#bfa");
+
+    </script>
+  </body>
+</html>

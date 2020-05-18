@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Scorll top</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body{
+            height: 300vh;
+        }
+        .btn-top{
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .menu{
+          position: fixed;
+          right:10px;
+          top:10px;
+        }
+
+        .full-page{
+          height: 100vh;
+        }
+
+    </style>
+  </head>
+  <body>
+    <ul class="list-unstyled menu">
+      <li><a href="#top">Top</a></li>
+      <li><a href="#content">Content</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="full-page">
+       <h1 id="top">Top</h1>
+    </div>
+    <div class="full-page">
+      <h1 id="content">Content</h1>
+    </div>
+     <div class="full-page">
+      <h1 id="about">About</h1>
+    </div>    
+      <button type="button" class="btn btn-primary btn-top">Top</button> 
+
+      <script
+      src="https://code.jquery.com/jquery-3.5.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"></script>
+      <script>
+
+        $(".menu a").click(function(){
+          let id = $(this).attr("href");
+          let target = $(id).offset().top;
+          
+          $("html").animate({
+            scrollTop : target
+          },500);
+        })
+
+        // 點擊Top按鈕滾輪回到最上面
+        $(".btn-top").click(function(){
+          // $(window).scrollTop(0);
+          // jQ的animate寫法：無法獲取window，要改用html
+          $("html").animate({
+            scrollTop : 0
+          },500);
+        })
+          
+      </script>
+  </body>
+</html>

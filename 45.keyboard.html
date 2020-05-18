@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Keyboard</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+      <div class="container">
+          <input type="text" name="" id="input">
+      </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        /* 
+            keydown() vs keyup()：
+                - input: o → a
+                - keyup()可以抓到val()更新的即時資訊。
+                    console.log("keyup: "+$(this).val());
+                    → o → a
+                - keydown()會晚一個步驟才抓到最新資訊。
+                    console.log("keydowun: "+$(this).val());
+                    → ""→ o
+            
+            keypress()：
+                - 只會獲取字母鍵：a o d w r ....
+                - alt、ctrl、shift、capsLock、上下左右鍵..等非字母鍵的按鍵不會被獲取。
+         */
+
+        $("#input").on({
+            keydown :function(event){
+                let keyCode = event.which;
+                // console.log("keydowun: "+$(this).val());
+                console.log("keydowun: "+keyCode);                
+            },            
+            keypress :function(event){
+                let keyCode = event.which;
+                // console.log("keypress");
+                console.log("keypress: "+keyCode); 
+            },
+            keyup :function(event){
+                let keyCode = event.which;
+                // console.log("keyup: "+$(this).val());
+                console.log("keyup: "+keyCode); 
+            }
+        })
+
+        // 若是input沒有包在form裡，按enter就不會自動送出，所以可以另外綁定送出事件
+        $("body").keyup(function(event){
+            let keyCode = event.which;
+            if(keyCode === 13){
+                alert("是否確定送出？");
+            }
+        })
+
+
+
+    </script>
+  </body>
+</html>

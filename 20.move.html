@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Move</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style>
+        .wrap{
+            height: 300px;
+            background: #ddd;
+            margin: 10px;
+        }
+
+        .box{
+            width: 50px;
+            height: 50px;
+            background-color: skyblue;
+            border-radius: 50%;
+        }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="wrap position-relative">
+            <div class="box position-absolute"></div>
+        </div>
+        <div class="arrow text-center">
+            <div class="py-2">
+                <button class="btn btn-info" id="up"><i class="fas fa-caret-up"></i></button>
+            </div>
+            <div class="py-2">
+                <button class="btn btn-info" id="left"><i class="fas fa-caret-left"></i></button>
+                <button class="btn btn-info" id="right"><i class="fas fa-caret-right"></i></button>
+            </div>
+            <div class="py-2">
+                <button class="btn btn-info" id="down"><i class="fas fa-caret-down"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+
+        let containerWidth = Math.round($(".wrap").width());
+        let containerHeight = Math.round($(".wrap").height());
+        let boxwidth= Math.round($(".box").width());
+        let boxHeight = Math.round($(".box").height());
+
+        let boxWid = containerWidth - boxwidth;
+        let boxHei = containerHeight - boxHeight;
+
+        let boxTop = Math.round($(".box").position().top);
+        let boxLeft = Math.round($(".box").position().left);
+
+        let speed = 0;
+        let add = 60;
+
+
+        // 寫法二：
+
+        $("#up").click(function(){
+                // $(".box").css({
+                //     top: speed,
+                //     background: "red"
+                // })
+            reset();
+
+            if(boxTop <= 0){
+                boxTop = 0;
+                $(".box").css("top",boxTop);
+            }else{
+                speed = boxTop-add;
+                $(".box").css("top",speed);
+            }
+
+            setColor();
+        });
+
+        $("#left").click(function(){
+            // $(".box").css({
+            //     left: speed,
+            //     background: "orange"
+            // })
+            reset();
+
+            if(boxLeft <= 0){
+                boxLeft = 0;
+                $(".box").css("left",boxLeft);
+            }else{
+                speed = boxLeft-add;
+                console.log(speed);
+                $(".box").css("left",speed);
+            }
+            setColor();
+        });
+
+        $("#right").click(function(){
+            // $(".box").css({
+            //     left: speed,
+            //     // background: "yellow"
+            // })
+            reset();
+
+            if(boxLeft >= boxWid){
+                boxLeft = boxWid;
+                $(".box").css("left",boxWid);
+            }else{
+
+                speed = boxLeft+add;
+                $(".box").css("left",speed);
+            }
+
+            setColor();
+        });
+
+        $("#down").click(function(){
+            // $(".box").css({
+            //     top: speed,
+            //     background: "green"
+            // })
+            reset();
+
+            if(boxTop >= boxHei){
+                boxTop = boxHei;
+                $(".box").css("top",boxTop);
+            }else{
+                speed = boxTop+add;
+                $(".box").css("top",speed);
+            }
+
+            setColor();
+        });
+
+        function reset(){
+            containerWidth = Math.round($(".wrap").width());
+            containerHeight = Math.round($(".wrap").height());
+            boxWid = containerWidth - boxwidth;
+            boxHei = containerHeight - boxHeight;
+            boxTop = Math.round($(".box").position().top);
+            boxLeft = Math.round($(".box").position().left);
+        }
+        
+        let bgColor = ["red","orange","yeoolw","green","blue","blue","indigo","purple","#bfa","black"];
+        let colorLen = bgColor.length;
+        let index = 0;
+
+        function setColor(){
+            $(".box").css({
+                background: bgColor[index]
+            });
+
+            index++;
+
+            if(index >= colorLen){
+                index = 0;
+            }
+        }
+
+
+
+        // 寫法一：
+        // $("#up").click(function(){
+        //     speed -= 10;
+        //     $(".box").css("top",speed);
+        // });
+
+        // $("#left").click(function(){
+        //     speed -= 10;
+        //     $(".box").css("left",speed);
+        // });
+
+        // $("#right").click(function(){
+        //     speed += 10;
+        //     $(".box").css("left",speed);
+        // });
+
+        // $("#down").click(function(){
+        //     speed += 10;
+        //     $(".box").css("top",speed);
+        // });
+
+
+
+
+
+    </script>
+
+  </body>
+</html>

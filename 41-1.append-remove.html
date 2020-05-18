@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Append Remove</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+  <body>
+      <div class="container">
+          <div class="py-2">
+              <form class="form-inline">
+                  <div class="form-group mr-2">
+                      <label for="" class="mr-2">姓名</label>
+                      <input type="text" name="" id="name" class="form-control" placeholder="" aria-describedby="helpId" required>
+                  </div>
+                  <div class="form-group mr-2">
+                        <label for="" class="mr-2">電話</label>
+                        <input type="tel" name="" id="tel" class="form-control" placeholder="" aria-describedby="helpId" maxlength="10" required>
+                    </div>
+                    <div class="form-group mr-2">
+                            <label for="" class="mr-2">email</label>
+                            <input type="email" name="" id="email" class="form-control" placeholder="" aria-describedby="helpId" required>
+                        </div>
+                        <div class="form-group">
+                            <a class="btn btn-primary text-white" id="add"><i class="fas fa-user-plus"></i></a>
+                        </div>
+              </form>
+          </div>
+        <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>電話</th>
+                        <th>email</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                </tbody>
+        </table>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script>
+
+      // $("#name").keyup(function(){
+      //    $(this).val($(this).val().replace(/[^\d]/,""))
+      //  })
+
+      $("#tel").keyup(function(){
+        $(this).val($(this).val().replace(/[^\d]/,""))
+      })
+
+      //  $("#mail").keyup(function(){
+      //    $(this).val($(this).val().replace(/[^\d]/,""))
+      //  })
+
+        $("#add").click(function(){
+          let username = $("#name").val();
+          let tel = $("#tel").val();
+          let email = $("#email").val();
+
+          let nweText = `<tr>
+                        <td class="name">${username}</td>
+                        <td class="tel">${tel}</td>
+                        <td class="email">${email}</td>
+                        <td><a class="btn btn-primary text-white del-btn"><i class="fas fa-trash-alt"></i></a>
+                          <a class="btn btn-primary text-white edit-btn"><i class="fas fa-edit"></i></a></td>
+                        </tr>`;
+
+          $("#tbody").prepend(nweText);
+
+          // 將輸入框的值清空
+          //  $("#name,#tel,#email").val("");
+          $(":input").val("");
+
+        })
+
+        // 刪除圖示
+        $("#tbody").on("click",".del-btn",function(){
+            $(this).closest("tr").remove();
+          })
+
+          // 編輯圖示
+          $("#tbody").on("click",".edit-btn",function(){
+            let username = $(this).closest("tr").find(".name").text();
+            let tel = $(this).closest("tr").find(".tel").text();
+            let email = $(this).closest("tr").find(".email").text();
+
+            let editName = `<td class="name"><input type="text" name="" class="form-control edit-name" placeholder="" aria-describedby="helpId" required value=${username}></td>`;
+
+            let editTel =`<td class="tel"><input type="tel" name="" class="form-control edit-tel" placeholder="" aria-describedby="helpId" maxlength="10" required value=${tel}></td>`;
+
+            let editEmail = `<td class="email"><input type="email" name="" class="form-control edit-email" placeholder="" aria-describedby="helpId" required value=${email}></td>`;
+
+            let editText = `<tr>${editName}${editTel}${editEmail}
+                        <td><a class="btn btn-primary text-white del-btn"><i class="fas fa-trash-alt"></i></a>
+                          <a class="btn btn-primary text-white edit-btn"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-primary text-white confirm-btn"><i class="fas fa-check-square"></i></a></td>
+                        </tr>`;
+
+            $(this).closest("tr").remove();
+            $("#tbody").append(editText);
+
+            // 確認圖示
+            $(".confirm-btn").click(function(){
+              let username = $(this).closest("tr").find(".edit-name").val();
+              let tel = $(this).closest("tr").find(".edit-tel").val();
+              let email = $(this).closest("tr").find(".edit-email").val();
+
+              let confirmText = `<tr>
+                        <td class="name">${username}</td>
+                        <td class="tel">${tel}</td>
+                        <td class="email">${email}</td>
+                        <td><a class="btn btn-primary text-white del-btn"><i class="fas fa-trash-alt"></i></a>
+                          <a class="btn btn-primary text-white edit-btn"><i class="fas fa-edit"></i></a></td>
+                        </tr>`;
+
+                $(this).closest("tr").remove();
+                $("#tbody").append(confirmText);
+
+            })
+
+          })
+
+
+
+
+
+      </script>
+</body>
+</html>

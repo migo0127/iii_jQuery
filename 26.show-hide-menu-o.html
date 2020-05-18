@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show Hide Menu</title>
+  
+  <style>
+  body{
+    background: #ccc;
+  }
+  .transition{
+    transition: 0.4s;
+  }
+  .wrapper{
+    width:800px;
+    margin: 20px auto
+  }
+  .menu{
+    display: inline-block;
+    cursor: pointer;
+    padding: 0 0 0 2px;
+    position: relative;
+  }
+  ul,li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .bar{
+      width: 36px;
+      height: 6px;
+      background: #666;
+      margin: 6px 0;
+      border-radius: 2px;
+  }
+  .active .bar1{
+      -webkit-transform: rotate(-45deg) translate(-9px, 7px) ;
+      transform: rotate(-45deg) translate(-9px, 7px) ;
+  }
+
+  .active .bar2{opacity: 0;}
+
+  .active .bar3{
+      -webkit-transform: rotate(45deg) translate(-9px, -8px) ;
+      transform: rotate(45deg) translate(-9px, -8px) ;
+  }
+
+  .select{
+    position: absolute;
+    left:0;
+    background-color: snow;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: .8s;
+  }
+
+  .select.active2{
+    max-height: 300px;
+    opacity: 1;
+  }
+
+
+  .select li{    
+    width: 100px;
+    /* background-color: springgreen; */
+  }
+
+  .select a{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+
+  .select li a:hover{
+    background-color: steelblue;
+  }
+
+  
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="menu transition" id="menu" >
+      <div class="bar bar1 transition"></div>
+      <div class="bar bar2 transition"></div>
+      <div class="bar bar3 transition"></div>
+      <ul class="select" id="select">
+        <li><a href="">Home</a></li>
+        <li><a href="">Shopping</a></li>
+        <li><a href="">Blog</a></li>
+        <li><a href="">Login</a></li>
+      </ul>
+    </div>
+    
+  </div>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script>
+    $("#menu").click(function(){
+      $("#menu").toggleClass("active");
+      $("#select").toggleClass("active2");
+    })
+    
+  </script>
+</body>
+</html>

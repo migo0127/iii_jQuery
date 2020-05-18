@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+
+        <div class="form-group">
+          <input type="text" name="" id="input" class="form-control">
+        </div>
+        <button type="button" class="btn btn-primary" id="submit">Submit</button>
+        <div class="py-2">
+            <button type="button" class="btn btn-primary" id="add">Add</button>
+        </div>
+        <div class="py-2">
+            <ul>
+                <li>item 1</li>
+                <li>item 2</li>
+                <li>item 3</li>
+            </ul>
+        </div>
+    </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+
+        // $("#input").on("change keyup",function(){
+        //     console.log("change keyup");
+        // });
+
+
+        // $("#submit").on("click",function(){
+        //     console.log("onclick");            
+        // });
+
+        $("#submit").on({
+            click: function(){
+                console.log("click");
+            },
+            mouseenter: function(){
+                console.log("mouse enter");
+            },
+            mouseleav: function(){
+                console.log("mouse leave");
+            }
+        });
+
+        $("#input").on({
+            click: function(){
+                console.log("click");
+            },
+            focus: function(){
+                console.log("focus");
+            },
+            blur: function(){
+                console.log("blur");
+            },
+            change: function(){
+                console.log("change");
+            }
+        });
+
+        
+        $("#add").on("click",function(){
+            let liIndex = $("li").length;
+            liIndex++;
+            // console.log(liIndex);
+            
+            let addLi = `<li>item ${liIndex}</li>`;
+            $("ul").append(addLi);
+        });
+
+        // 後面add button 所新增的li不會觸發此事件
+        // 所以要改變on的寫法，使其一起觸發
+        // $("ul li").on("click",function(){
+        //     console.log("item add");
+        // });
+
+
+        // 寫法一：
+        // $("ul").on("click","li",function(){           
+        //     // console.log("item add");
+        //     let content = $(this).text();
+        //     console.log(content);
+        // });
+
+        // 寫法二：
+        $("ul").on({
+            click: function(){
+                let content = $(this).text();
+                console.log(content);                
+            },
+            mouseenter: function(){
+                let content = $(this).text();
+                console.log("mouseenter: " +content);          
+            }
+        },"li");
+
+      
+    </script>
+
+  </body>
+</html>

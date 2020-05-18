@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+
+      #button03{
+        background: green;
+      }
+
+    </style>
+
+  </head>
+  <body>
+
+    <button>btn01</button>
+    <button class="btn02">btn02</button>
+    <button class="btn03" id="button03">btn03</button>
+    <button class="btn04" id="button03">btn04</button>
+
+    <div class="py-2">
+      <a href="https://www.google.com">google</a>
+      <a href="https:www.facebook.com" target="_block">facebook</a>
+    </div>
+
+    <div class="py-2">
+      <div class="sel">
+        <button class="btn05">btn05</button>
+      </div>
+      <div class="sel">      
+        <button class="btn06">btn06</button>
+      </div>
+      <div class="sel">      
+        <button class="btn07">btn07</button>
+      </div>
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+
+        /* 
+            jQuery是將css樣式透過「內聯樣式」添加上去，所以會發生後面覆蓋前面樣式的情況，因內聯樣式為最高權重，故在使用jQuery時，要特別留意選擇器重覆使用時可能會發生的覆蓋問題。
+        */
+        $(".btn02").css("background","yellow");
+        $("button").css("background","#bfa");
+        // $(".btn02").css("background","yellow");
+
+
+        /* 
+          CSS中若有兩個id重覆時，仍會一起被選擇，但是在jQuery中，因id選擇器瀏覽器選擇的速度較快，在前面的被選擇到後，就會返回執行其他程式，所以只會被選擇到一個id套用樣式。
+        */
+        $("#button03").css("background","green");
+        $("#button03").css("background","green");
+
+
+        $("a[target='_block']").css("background","pink");
+        $("a[href='https://www.google.com']").css("background","blue");
+
+      $(".sel .btn05").css("background","skyblue");
+
+      $(".sel .btn05").css("background","skyblue");
+
+      $(".sel .btn06,.sel .btn07").css("background","yellow");
+
+
+     
+
+    </script>
+
+  </body>
+</html>
